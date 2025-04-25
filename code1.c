@@ -89,6 +89,25 @@ void view_messages() {
     }
 }
 
+// Function to delete a class
+void delete_class() {
+    char subject[30];
+    printf("Enter subject to delete: ");
+    scanf(" %[^\n]", subject);
+    for (int i = 0; i < class_count; i++) {
+        if (strcmp(subject, timetable[i].subject) == 0) {
+            // Shift remaining classes to delete the class
+            for (int j = i; j < class_count - 1; j++) {
+                timetable[j] = timetable[j + 1];
+            }
+            class_count--;
+            printf("Class deleted successfully!\n");
+            return;
+        }
+    }
+    printf("Class not found.\n");
+}
+
 int main() {
     int choice;
     while (1) {
@@ -99,6 +118,7 @@ int main() {
         printf("4. Send Message\n");
         printf("5. View Messages\n");
         printf("6. Exit\n");
+        printf("7. Delete Class\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
 
@@ -109,6 +129,7 @@ int main() {
             case 4: send_message(); break;
             case 5: view_messages(); break;
             case 6: return 0;
+            case 7: delete_class(); break;
             default: printf("Invalid choice. Try again.\n");
         }
     }
